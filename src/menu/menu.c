@@ -1,6 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "menu.h"
 #include "utils/utils.h"
 #include "vehicles/vehicles.h"
