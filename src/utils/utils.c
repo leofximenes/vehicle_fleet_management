@@ -55,6 +55,19 @@ bool read_string(char *buffer, const int size) {
     return false;
 }
 
+const char* get_vehicle_type(int type) {
+
+    switch (type) {
+        case 1:
+            return "Car";
+        case 2:
+            return "Motorcycle";
+        case 3:
+            return "Truck";
+        default:
+            return "Unknown";
+    }
+}
 
 
 

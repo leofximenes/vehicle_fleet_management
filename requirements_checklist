@@ -1,8 +1,11 @@
-============================================
+
+====================
+MAJOR REQUIREMENTS
+====================
 
 void register_vehicle = DONE
 
-void check_vehicle = TO DO
+void check_vehicle = DONE
 
 void generate_report = TO DO
 
@@ -10,4 +13,5 @@ void update_mileage = TO DO
 
 void show_menu = DONE
 
-============================================
+=========================
+

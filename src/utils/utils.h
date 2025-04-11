@@ -8,5 +8,6 @@ void println(const char *message);
 int read_int();
 bool read_string(char *buffer, int size);
 void clear_input_buffer();
+const char* get_vehicle_type(int type);
 
 #endif

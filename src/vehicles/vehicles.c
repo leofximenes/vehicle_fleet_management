@@ -6,4 +6,5 @@ void add_vehicle(Vehicle fleet[], int *total_vehicles, Vehicle new_vehicle) {
     fleet[*total_vehicles] = new_vehicle;
     (*total_vehicles)++;
     println("Vehicle added successfully!");
+
 }

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "menu.h"
 #include "utils/utils.h"
 #include "vehicles/vehicles.h"
@@ -25,7 +26,6 @@ void show_menu(Vehicle fleet[], int *total_vehicles) {
                 break;
             case 2:
                 check_vehicle(fleet, *total_vehicles);
-                //to do//
                 break;
             case 3:
                 //to do//
@@ -43,10 +43,15 @@ void show_menu(Vehicle fleet[], int *total_vehicles) {
 }
 
 void register_vehicle(Vehicle fleet[], int *total_vehicles) {
-    Vehicle new_vehicle;
 
-    println("\n1. Car\n2. Motorcycle\n3. Truck\nSelect type:\n");
-    new_vehicle.type = read_int();
+    Vehicle new_vehicle;
+    clear_input_buffer();
+
+    int option_type;
+
+    println("\n1. Car\n2. Motorcycle\n3. Truck\nSelect type:");
+    scanf("%d", &option_type);
+    new_vehicle.type = option_type;
     clear_input_buffer();
 
     println("Enter plate:");
@@ -65,5 +70,27 @@ void register_vehicle(Vehicle fleet[], int *total_vehicles) {
 }
 
 void check_vehicle(Vehicle fleet[], int total_vehicles) {
-    //TO DO//
+
+    char search_plate[9];
+    int found = 0;
+
+    clear_input_buffer();
+
+    printf("Write the plate number from desired vehicle:\n");
+    read_string(search_plate, sizeof(search_plate));
+
+    for(int i = 0; i < total_vehicles; i++) {
+        if (strcmp(fleet[i].plate, search_plate) == 0) {
+            printf("\n Vehicle from plate === %s === found:\n", search_plate);
+            printf("\n | TYPE: %s\n | PLATE: %s\n | MODEL: %s\n | YEAR: %d\n | MILEAGE: %d km\n",
+                    get_vehicle_type(fleet[i].type), fleet[i].plate, fleet[i].model, fleet[i].year, fleet[i].mileage);
+            found = 1;
+            break;
+        }
+    }
+    if (!found) {
+        printf("Vehicle from plate '%s' not found !", search_plate);
+    }
+
 }
+
