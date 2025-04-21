@@ -3,19 +3,20 @@
 #include "menu.h"
 #include "utils/utils.h"
 #include "vehicles/vehicles.h"
+#include <utils/colors.h>
 
 void show_menu(Vehicle fleet[], int *total_vehicles) {
 
     int option;
     while (1) {
 
-        println("\n=== Vehicle Fleet Management ===");
-        println("\n1. Register Vehicle");
-        println("\n2. Check Vehicle");
-        println("\n3. Generate Fleet Report");
-        println("\n4. Update Mileage");
-        println("\n5. Exit");
-        print("\nChoose an Option: ");
+        println(COLOR_YELLOW"\n===" COLOR_RESET " Vehicle Fleet Management"COLOR_YELLOW " ===" COLOR_RESET);
+        println(COLOR_YELLOW"\n1."COLOR_RESET" Register Vehicle");
+        println(COLOR_YELLOW"\n2."COLOR_RESET" Check Vehicle");
+        println(COLOR_YELLOW"\n3."COLOR_RESET" Generate Fleet Report");
+        println(COLOR_YELLOW"\n4."COLOR_RESET" Update Mileage");
+        println(COLOR_YELLOW"\n5."COLOR_RESET COLOR_RED" Exit"COLOR_RESET);
+        print("\nChoose an "COLOR_YELLOW"Option:"COLOR_RESET" ");
 
         scanf("%d", &option);
 
@@ -37,7 +38,7 @@ void show_menu(Vehicle fleet[], int *total_vehicles) {
                 println("Exiting...");
                 return;
             default:
-                println("Invalid Option !");
+                println(COLOR_RED"Invalid Option !"COLOR_RESET);
         }
     }
 }
@@ -49,21 +50,25 @@ void register_vehicle(Vehicle fleet[], int *total_vehicles) {
 
     int option_type;
 
-    println("\n1. Car\n2. Motorcycle\n3. Truck\nSelect type:");
+    println("\n"COLOR_YELLOW"1."COLOR_RESET" Car\n"
+    COLOR_YELLOW"2."COLOR_RESET" Motorcycle\n"
+    COLOR_YELLOW"3."COLOR_RESET" Truck\n\n"
+    "Select "COLOR_YELLOW"type:"COLOR_RESET"\n");
     scanf("%d", &option_type);
+
     new_vehicle.type = option_type;
     clear_input_buffer();
 
-    println("Enter plate:");
+    println("\nEnter"COLOR_YELLOW" plate:" COLOR_RESET "\n");
     read_string(new_vehicle.plate, MAX_PLATE);
 
-    println("Enter model:");
+    println("\nEnter"COLOR_YELLOW" model:" COLOR_RESET"\n");
     read_string(new_vehicle.model, MAX_MODEL);
 
-    println("Enter year:");
+    println("\nEnter"COLOR_YELLOW" year:" COLOR_RESET"\n");
     new_vehicle.year = read_int();
 
-    println("Enter mileage:");
+    println("\nEnter"COLOR_YELLOW" mileage:" COLOR_RESET"\n");
     new_vehicle.mileage = read_int();
 
     add_vehicle(fleet, total_vehicles, new_vehicle);
@@ -76,20 +81,25 @@ void check_vehicle(Vehicle fleet[], int total_vehicles) {
 
     clear_input_buffer();
 
-    printf("Write the plate number from desired vehicle:\n");
+    printf("\nWrite the "COLOR_YELLOW"plate number"COLOR_RESET" from desired vehicle:\n");
     read_string(search_plate, sizeof(search_plate));
 
     for(int i = 0; i < total_vehicles; i++) {
         if (strcmp(fleet[i].plate, search_plate) == 0) {
-            printf("\n Vehicle from plate === %s === found:\n", search_plate);
-            printf("\n | TYPE: %s\n | PLATE: %s\n | MODEL: %s\n | YEAR: %d\n | MILEAGE: %d km\n",
+            printf(COLOR_GREEN "\n Vehicle from plate" COLOR_RESET " === %s === " COLOR_GREEN "found" COLOR_RESET"\n", search_plate);
+            printf("\n"
+                COLOR_YELLOW" | TYPE:"COLOR_RESET" %s\n"
+                COLOR_YELLOW" | PLATE:"COLOR_RESET" %s\n"
+                COLOR_YELLOW" | MODEL:"COLOR_RESET" %s\n"
+                COLOR_YELLOW" | YEAR:"COLOR_RESET" %d\n"
+                COLOR_YELLOW" | MILEAGE:"COLOR_RESET"%d km\n",
                     get_vehicle_type(fleet[i].type), fleet[i].plate, fleet[i].model, fleet[i].year, fleet[i].mileage);
             found = 1;
             break;
         }
     }
     if (!found) {
-        printf("Vehicle from plate '%s' not found !", search_plate);
+        printf(COLOR_RED "Vehicle from plate "COLOR_RESET"=== %s === "COLOR_RED" not found !\n"COLOR_RESET, search_plate);
     }
 
 }
@@ -97,14 +107,21 @@ void check_vehicle(Vehicle fleet[], int total_vehicles) {
 void generate_report(Vehicle fleet[], int total_vehicles) {
 
     if (total_vehicles == 0) {
-        printf("No vehicles found !");
+        printf(COLOR_RED"No vehicles found !"COLOR_RESET);
         return;
 }
-    printf("\n=== List of Vehicles ===\n");
+    printf("\n"COLOR_YELLOW"==="COLOR_RESET" List of Vehicles "COLOR_YELLOW"==="COLOR_RESET"\n");
+
+    printf(COLOR_YELLOW "\n%d/100\n" COLOR_RESET,total_vehicles);
 
     for (int i = 0; i < total_vehicles; i++) {
-        printf("\n#%d Vehicle:\n", i + 1);
-        printf("\n | TYPE: %s\n | PLATE: %s\n | MODEL: %s\n | YEAR: %d\n | MILEAGE: %d km\n",
+        printf(COLOR_YELLOW"\n#%d"COLOR_RESET" Vehicle:\n", i + 1);
+
+        printf(COLOR_YELLOW"\n | TYPE:"COLOR_RESET" %s\n"
+        COLOR_YELLOW" | PLATE:"COLOR_RESET" %s\n"
+        COLOR_YELLOW" | MODEL:"COLOR_RESET" %s\n"
+        COLOR_YELLOW" | YEAR:"COLOR_RESET" %d\n"
+        COLOR_YELLOW" | MILEAGE:"COLOR_RESET" %d km\n",
             get_vehicle_type(fleet[i].type), fleet[i].plate, fleet[i].model, fleet[i].year, fleet[i].mileage);
     }
 
@@ -118,27 +135,27 @@ void update_mileage(Vehicle fleet[], int total_vehicles) {
 
     clear_input_buffer();
 
-    printf("Write the plate number from desired vehicle:\n");
+    printf("\nWrite the "COLOR_YELLOW"plate number"COLOR_RESET" from desired vehicle:\n");
     read_string(search_plate, sizeof(search_plate));
 
     clear_input_buffer();
 
     for(int i = 0; i < total_vehicles; i++) {
         if (strcmp(fleet[i].plate, search_plate) == 0) {
-            printf("\n Vehicle from plate === %s === found:\n", search_plate);
-            printf("\n Vehicle current mileage: %d km\n", fleet[i].mileage);
+            printf(COLOR_GREEN"\nVehicle from plate" COLOR_RESET " === %s === " COLOR_GREEN "found:\n"COLOR_RESET, search_plate);
+            printf("\nVehicle current "COLOR_YELLOW"mileage:"COLOR_RESET" %d km\n", fleet[i].mileage);
 
-            printf("\nType the new mileage\n");
+            printf("\nType the new "COLOR_YELLOW"mileage"COLOR_RESET"\n");
             scanf("%d", &new_mileage);
 
             fleet[i].mileage = new_mileage;
-            printf("\n Mileage updated !\n");
+            printf(COLOR_GREEN"\nMileage updated !\n"COLOR_RESET);
 
             found = 1;
             break;
         }
     }
         if (!found) {
-            printf("Vehicle from plate '%s' not found !", search_plate);
+            printf(COLOR_RED"Vehicle from plate"COLOR_RESET" '%s'"COLOR_RED" not found !\n"COLOR_RESET, search_plate);
         }
     }

@@ -9,6 +9,7 @@ add_executable(VehicleFleetManagement
         src/vehicles/vehicles.c
         src/menu/menu.c
         src/utils/utils.h
+        src/utils/colors.h
 )
 
 target_include_directories(VehicleFleetManagement PRIVATE src)
