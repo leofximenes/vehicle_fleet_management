@@ -7,9 +7,9 @@ void register_vehicle = DONE
 
 void check_vehicle = DONE
 
-void generate_report = TO DO
+void generate_report = DONE
 
-void update_mileage = TO DO
+void update_mileage = DONE
 
 void show_menu = DONE
 
