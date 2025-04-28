@@ -14,10 +14,13 @@ int main(void) {
     GetConsoleMode(hOut, &dwMode);
     dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
     SetConsoleMode(hOut, dwMode);
+    SetConsoleOutputCP(CP_UTF8);
 #endif
 
     Vehicle fleet[100];
     int total_vehicles = 0;
+
+    initialize_fleet(fleet, &total_vehicles);
 
     show_menu(fleet, &total_vehicles);
     return 0;

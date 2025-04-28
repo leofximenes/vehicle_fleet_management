@@ -68,7 +68,3 @@ const char* get_vehicle_type(int type) {
             return "Unknown";
     }
 }
-
-
-
-
